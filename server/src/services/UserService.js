@@ -1,7 +1,6 @@
 const User = require("../models/UserModel")
 const bcrypt = require("bcrypt")
-const { genneralAccessToken } = require("./JwtService")
-
+const { generateAccessToken } = require("./JwtService")
 const createUser = (newUser) => {
     return new Promise(async (resolve, reject) => {
         const { name, email, password, confirmPassword, phone } = newUser
@@ -34,11 +33,9 @@ const createUser = (newUser) => {
         }
     })
 }
-
 const loginUser = (userLogin) => {
     return new Promise(async (resolve, reject) => {
         const { name, email, password, confirmPassword, phone } = userLogin
-        console.log("userLogin", userLogin)
         try {
             const checkUser = await User.findOne({
                 email: email
@@ -50,24 +47,20 @@ const loginUser = (userLogin) => {
                 })
             }
             const comparePassword = bcrypt.compareSync(password, checkUser.password)
-
             if (!comparePassword) {
                 resolve({
                     status: 'OK',
                     message: 'The password or user is incorrect'
                 })
             }
-
-            const access_token = await genneralAccessToken({
+            const access_token = await generateAccessToken({
                 id: checkUser.id,
                 isAdmin: checkUser.isAdmin
             })
-
-            const refresh_token = await genneralAccessToken({
+            const refresh_token = await generateAccessToken({
                 id: checkUser.id,
                 isAdmin: checkUser.isAdmin
             })
-
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',
@@ -93,7 +86,6 @@ const updateUser = (id, data) => {
                     message: 'The user is not defined'
                 })
             }
-
             const updatedUser = await User.findByIdAndUpdate(id, data, { new: true })
             resolve({
                 status: 'OK',

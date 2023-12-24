@@ -5,8 +5,8 @@ const configViewEngine = require('./config/viewEngine');
 const bodyParser = require('body-parser');
 const webRoutes = require('./routes/web');
 const UserRouter = require('./routes/UserRouter');
-const connection = require('./config/db');
-const { default: mongoose } = require('mongoose');
+// const connection = require('./config/db');
+const mongoose = require('mongoose')
 
 const app = express()
 const port = process.env.PORT || 8888
