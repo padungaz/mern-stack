@@ -5,6 +5,7 @@ const configViewEngine = require('./config/viewEngine');
 const bodyParser = require('body-parser');
 const webRoutes = require('./routes/web');
 const UserRouter = require('./routes/UserRouter');
+const ProductRouter = require('./routes/ProductRouter');
 // const connection = require('./config/db');
 const mongoose = require('mongoose')
 
@@ -39,6 +40,7 @@ mongoose.connect(db)
 // defile router
 app.use('/', webRoutes)
 app.use('/api/user', UserRouter)
+app.use('/api/product', ProductRouter)
 
 app.listen(port, hostname, () => {
     console.log(`Example app listening on port ${port}`)
