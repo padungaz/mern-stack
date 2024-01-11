@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser')
+
 const configViewEngine = require('./config/viewEngine');
 const bodyParser = require('body-parser');
 const webRoutes = require('./routes/web');
@@ -20,19 +22,11 @@ configViewEngine(app)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors());
-
-// test connection
-// connection.query(
-//     'select * from Users u',
-//     function (err, results, fields) {
-//         console.log("results", results); // results contains rows returned by server
-//         console.log("fields", fields); // fields contains extra meta data about results, if available
-//     }
-// );
+app.use(cookieParser())
 
 mongoose.connect(db)
     .then(() => {
-        console.log("trueeeee")
+        console.log("ok 1111")
     }).catch((err) => {
         console.log("222222", err)
     })

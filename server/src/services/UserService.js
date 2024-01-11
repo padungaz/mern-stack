@@ -11,7 +11,7 @@ const createUser = (newUser) => {
             })
             if (checkUser !== null) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The email is already'
                 })
             }
@@ -84,7 +84,7 @@ const updateUser = (id, data) => {
             console.log('checkUser', checkUser)
             if (checkUser === null) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined'
                 })
             }
@@ -108,14 +108,14 @@ const deleteUser = (id) => {
             })
             if (checkUser === null) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined'
                 })
             }
 
             await User.findByIdAndDelete(id)
             resolve({
-                status: 'OK',
+                status: 'ERR',
                 message: 'Delete user success',
             })
         } catch (e) {
@@ -147,7 +147,7 @@ const getDetailsUser = (id) => {
             })
             if (user === null) {
                 resolve({
-                    status: 'OK',
+                    status: 'ERR',
                     message: 'The user is not defined'
                 })
             }
